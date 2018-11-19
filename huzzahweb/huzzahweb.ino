@@ -31,8 +31,8 @@ void setup() {
 }
 
 void PostData() {
-  String data = "sensori=30";
-  String url = "http://172.20.240.56/test.php";
+  String data = "maaper=30";
+  String url = "http://172.20.240.56/lisaadata.php";
   HTTPClient http;
   http.setReuse(true);
   http.begin(url);
@@ -57,7 +57,7 @@ void loop() {
 
 
 PostData();
- delay(1000);
+ delay(10000);
  
   WiFiClient client;
   const int httpPort = 80;
