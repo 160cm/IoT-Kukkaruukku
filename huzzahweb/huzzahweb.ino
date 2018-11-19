@@ -31,21 +31,21 @@ void setup() {
 }
 
 void PostData() {
-  String data = "30";
+  String data = "sensori=30";
   String url = "http://172.20.240.56/test.php";
   HTTPClient http;
   http.setReuse(true);
   http.begin(url);
-  http.addHeader("Host", "http://172.20.240.56/test.php");
-  http.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0");
-  http.addHeader("Accept-Language", " en-US,en;q=0.5");
-  http.addHeader("Accept-Encoding", " gzip, deflate, br");
+  http.addHeader("Host", "http://172.20.240.56");
+ http.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0");
+ http.addHeader("Accept-Language", " en-US,en;q=0.5");
+ http.addHeader("Accept-Encoding", " gzip, deflate, br");
   http.addHeader("Content-Type", " application/x-www-form-urlencoded; charset=UTF-8");
-  http.addHeader("X-Requested-With", " XMLHttpRequest");
-  http.addHeader("Referer", " https://www.shippingmanager.dk/sh/?fb_source=shippingmanager.dk");
-  http.addHeader("Connection", "keep-alive");
-  http.addHeader("Pragma", " no-cache");
-  http.addHeader("Cache-Control", " no-cache");
+ http.addHeader("X-Requested-With", " XMLHttpRequest");
+ http.addHeader("Referer", " https://www.shippingmanager.dk/sh/?fb_source=shippingmanager.dk");
+ http.addHeader("Connection", "keep-alive");
+ http.addHeader("Pragma", " no-cache");
+ http.addHeader("Cache-Control", " no-cache");
 
   int result = http.POST(data);
   http.writeToStream(&Serial);
@@ -55,15 +55,15 @@ void PostData() {
 
 void loop() {
 
+
+PostData();
+ delay(1000);
+ 
   WiFiClient client;
   const int httpPort = 80;
   if (!client.connect(host, httpPort)) {
     Serial.println("connection failed");
     return;
   }
-
-
- PostData();
- delay(1000);
 }
-//=======================================================================
+
