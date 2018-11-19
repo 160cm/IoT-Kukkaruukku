@@ -47,7 +47,8 @@ void setup() {
 }
 
 void PostData() {
-  String data = "maaper=", temp;
+  String data = "maaper=";
+  String sensordata = data + temp;
   String url = "http://172.20.240.56/lisaadata.php";
   HTTPClient http;
   http.setReuse(true);
@@ -63,7 +64,7 @@ void PostData() {
  http.addHeader("Pragma", " no-cache");
  http.addHeader("Cache-Control", " no-cache");
 
-  int result = http.POST(data);
+  int result = http.POST(sensordata);
   http.writeToStream(&Serial);
   http.end();
 
