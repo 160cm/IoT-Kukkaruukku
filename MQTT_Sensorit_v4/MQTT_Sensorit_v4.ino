@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <BH1750FVI.h>
 #include <Wire.h>
+#include <math.h>
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
@@ -13,7 +14,7 @@
 
 BH1750FVI LightSensor;
 
-const double timerValue = 60000;
+const double timerValue = 10000;
 const int sensor = A0;
 const int tempSenVolt = 14;
 const int soilSenVolt = 12;
@@ -42,12 +43,14 @@ void Lammonlahetys() {
     sensorValue = analogRead(sensor);
     voltage = sensorValue/1096 * 1;
     temp = (voltage-0.5)/0.01;
+    float rounded = roundf(temp * 10)/10;
+    //Serial.print(rounded);
     delay(500);
     digitalWrite(tempSenVolt, LOW);
     Serial.print("temperature = ");
-    Serial.print(temp, 1); 
+    Serial.print(rounded); 
     //lahetaLampo = temp;
-    if (! sendPubLampo.publish(temp, sizeof(temp)))
+    if (! sendPubLampo.publish(rounded, sizeof(rounded)))
         Serial.println(F("Publish Failed."));
     else {
         Serial.println(F("Publish Success!"));
@@ -58,7 +61,7 @@ void Kosteudenlahetys() {
     digitalWrite(soilSenVolt, HIGH);
     delay(500);
     sensorValue = analogRead(sensor);
-    sensorValue = map(sensorValue,545,5,100,0);
+    sensorValue = map(sensorValue,590,8,100,0);
     delay(500);
     digitalWrite(soilSenVolt, LOW);
     Serial.print("moisture = ");
