@@ -14,7 +14,7 @@
 
 BH1750FVI LightSensor;
 
-const double timerValue = 10000;
+const double timerValue = 60000;
 const int sensor = A0;
 const int tempSenVolt = 14;
 const int soilSenVolt = 12;
@@ -23,6 +23,7 @@ unsigned long timer = 0;
 float sensorValue = 0;
 float voltage = 0;
 float temp = 0;
+float rounded = 0;
 int lux;
 
 WiFiClient client;
@@ -43,7 +44,7 @@ void Lammonlahetys() {
     sensorValue = analogRead(sensor);
     voltage = sensorValue/1096 * 1;
     temp = (voltage-0.5)/0.01;
-    float rounded = roundf(temp * 10)/10;
+    rounded = roundf(temp * 10)/10;
     //Serial.print(rounded);
     delay(500);
     digitalWrite(tempSenVolt, LOW);
@@ -91,7 +92,7 @@ void sensoriCallBack(double x){
     Serial.println("toimii");
     sendPubKosteus.publish(sensorValue, sizeof(sensorValue));
     sendPubValo.publish(lux, sizeof(lux));
-    sendPubLampo.publish(temp, sizeof(temp));
+    sendPubLampo.publish(rounded, sizeof(rounded));
   }
   
 }
