@@ -62,7 +62,7 @@ void Kosteudenlahetys() {
     digitalWrite(soilSenVolt, HIGH);
     delay(500);
     sensorValue = analogRead(sensor);
-    sensorValue = map(sensorValue,590,8,100,0);
+    sensorValue = map(sensorValue,590,10,100,0);
     delay(500);
     digitalWrite(soilSenVolt, LOW);
     Serial.print("moisture = ");
