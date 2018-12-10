@@ -45,12 +45,10 @@ void Lammonlahetys() {
     voltage = sensorValue/1096 * 1;
     temp = (voltage-0.5)/0.01;
     rounded = roundf(temp * 10)/10;
-    //Serial.print(rounded);
     delay(500);
     digitalWrite(tempSenVolt, LOW);
     Serial.print("temperature = ");
     Serial.print(rounded); 
-    //lahetaLampo = temp;
     if (! sendPubLampo.publish(rounded, sizeof(rounded)))
         Serial.println(F("Publish Failed."));
     else {
@@ -68,7 +66,6 @@ void Kosteudenlahetys() {
     Serial.print("moisture = ");
     Serial.print(sensorValue, 0);
     Serial.println(" %");
-    //lahetaKosteus[] = sensorValue;
     if (! sendPubKosteus.publish(sensorValue, sizeof(sensorValue)))
         Serial.println(F("Publish Failed."));
     else {
@@ -89,14 +86,10 @@ void Valonlahetys() {
 
 void sensoriCallBack(double x){
   if(x > 0){
-    //sendPubKosteus.publish(sensorValue, sizeof(sensorValue));
     Kosteudenlahetys();
-    //sendPubValo.publish(lux, sizeof(lux));
     Valonlahetys();
-    //sendPubLampo.publish(rounded, sizeof(rounded));
     Lammonlahetys();
-  }
-  
+  }  
 }
 
 void setup() {
@@ -165,7 +158,6 @@ void MQTT_connect() {
        delay(10000);  // wait 10 seconds
        retries--;
        if (retries == 0) {
-         // basically die and wait for WDT to reset me
          while (1);
        }
   }
